@@ -1,0 +1,7 @@
+*.pyc
+*.squad
+*.code-workspace
+build/*
+dist/*
+RSMTools*
+pyside6-uic.exe

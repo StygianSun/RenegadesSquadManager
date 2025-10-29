@@ -1,0 +1,608 @@
+Pistol:
+  cost: 1
+  slots: 1
+  range: 9
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Hip Fire
+  - Akimbo
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Machine Pistol:
+  cost: 4
+  slots: 1
+  range: 9
+  attack_dice: 3
+  dmg: 1
+  special_rules:
+  - Hip Fire
+  - Akimbo
+  - Suppressive
+  - Desperate Rolls
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Plasma Pistol:
+  cost: 4
+  slots: 1
+  range: 9
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Hip Fire
+  - Akimbo
+  - Piercing
+  type: ranged
+  rules:
+  is_rare: true
+  rare_cost: 1
+Smelta Pistol:
+  cost: 5
+  slots: 1
+  range: 6
+  attack_dice: 1
+  dmg: 4
+  special_rules:
+  - Hip Fire
+  - Akimbo
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Shotgun:
+  cost: 3
+  slots: 2
+  range: 9
+  attack_dice: 4
+  dmg: 1
+  special_rules:
+  - Hip Fire
+  - Desperate Rolls
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Smeltagun:
+  cost: 6
+  slots: 2
+  range: 9
+  attack_dice: 1
+  dmg: 4
+  special_rules:
+  - Hip Fire
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Rifle:
+  cost: 3
+  slots: 2
+  range: 18
+  attack_dice: 1
+  dmg: 1
+  special_rules: 
+  - Auto
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Carbine:
+  cost: 3
+  slots: 2
+  range: 12
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Auto
+  - Hip Fire
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Storm Carbine:
+  cost: 6
+  slots: 2
+  range: 12
+  attack_dice: 2
+  dmg: 1
+  special_rules:
+  - Auto
+  - Hip Fire
+  - Suppressive
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Plasma Rifle:
+  cost: 7
+  slots: 2
+  range: 18
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Auto
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Machine Gun:
+  cost: 8
+  slots: 3
+  range: -1
+  attack_dice: 3
+  dmg: 1
+  special_rules:
+  - Suppressive
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Auto Cannon:
+  cost: 10
+  slots: 4
+  range: -1
+  attack_dice: 2
+  dmg: 2
+  special_rules:
+  - Suppressive
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Whirlwind Cannon:
+  cost: 13
+  slots: 4
+  range: 18
+  attack_dice: 6
+  dmg: 1
+  special_rules:
+  - Hip Fire
+  - Suppressive
+  - Split Fire
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Marksman Rifle:
+  cost: 5
+  slots: 2
+  range: -1
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Precise
+  type: ranged
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Sniper Rifle:
+  cost: 9
+  slots: 2
+  range: -1
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Precise
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Deathray Laser:
+  cost: 14
+  slots: 3
+  range: -1
+  attack_dice: 1
+  dmg: 3
+  special_rules:
+  - Precise
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 2
+Grenade Launcher:
+  cost: 6
+  slots: 2
+  range: 18
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Blast
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Mortar:
+  cost: 9
+  slots: 4
+  range: -1
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Blast
+  - Ordnance
+  - Duration 2
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Missile Launcher:
+  cost: 9
+  slots: 3
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules:
+  - When Firing, choose a fire mode below
+  fire_modes:
+    Blast Missile:
+      range: -1
+      attack_dice: 1
+      dmg: 1
+      special_rules:
+      - Blast
+    Piercing Missile:
+      range: -1
+      attack_dice: 1
+      dmg: 2
+      special_rules:
+      - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Plasma Launcher:
+  cost: 12
+  slots: 3
+  range: 18
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Blast
+  - Piercing
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Hand Flamer:
+  cost: 4
+  slots: 1
+  range: 6
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Flame
+  - Hip Fire
+  - Akimbo
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Flamer:
+  cost: 5
+  slots: 2
+  range: 9
+  attack_dice: 1
+  dmg: 1
+  special_rules:
+  - Flame
+  - Hip Fire
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Heavy Flamer:
+  cost: 8
+  slots: 3
+  range: 9
+  attack_dice: 1
+  dmg: 2
+  special_rules:
+  - Flame
+  - Hip Fire
+  type: ranged
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Small Melee Weapon:
+  cost: 1
+  slots: 1
+  range: 1
+  attack_dice: 1
+  dmg: 1
+  special_rules: []
+  type: melee
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Melee Weapon:
+  cost: 2
+  slots: 2
+  range: 1
+  attack_dice: 2
+  dmg: 1
+  special_rules: []
+  type: melee
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Big Melee Weapon:
+  cost: 3
+  slots: 3
+  range: 1
+  attack_dice: 3
+  dmg: 1
+  special_rules: []
+  type: melee
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Massive Melee Weapon:
+  cost: 4
+  slots: 4
+  range: 1
+  attack_dice: 4
+  dmg: 1
+  special_rules: []
+  type: melee
+  rules: []
+  is_rare: false
+  rare_cost: 0
+Power Blade:
+  cost: 4
+  slots: 2
+  range: 1
+  attack_dice: 2
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Riposte
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Big Power Blade:
+  cost: 6
+  slots: 3
+  range: 1
+  attack_dice: 3
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Riposte
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Massive Power Blade:
+  cost: 8
+  slots: 4
+  range: 1
+  attack_dice: 4
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Riposte
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Power Spear:
+  cost: 4
+  slots: 2
+  range: 1
+  attack_dice: 2
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Reach
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Big Power Spear:
+  cost: 6
+  slots: 3
+  range: 1
+  attack_dice: 3
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Reach
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Massive Power Spear:
+  cost: 8
+  slots: 4
+  range: 1
+  attack_dice: 4
+  dmg: 1
+  special_rules:
+  - Piercing
+  - Reach
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Power Basher:
+  cost: 6
+  slots: 2
+  range: 1
+  attack_dice: 2
+  dmg: 2
+  special_rules:
+  - Piercing
+  - Cataclysmic
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Big Power Basher:
+  cost: 9
+  slots: 3
+  range: 1
+  attack_dice: 3
+  dmg: 2
+  special_rules:
+  - Piercing
+  - Cataclysmic
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Massive Power Basher:
+  cost: 12
+  slots: 4
+  range: 1
+  attack_dice: 4
+  dmg: 2
+  special_rules:
+  - Piercing
+  - Cataclysmic
+  type: melee
+  rules: []
+  is_rare: true
+  rare_cost: 1
+Medpack:
+  cost: 3
+  slots: 0
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    Using an Interaction, a soldier with a medpack can Herald
+    allies within proximity (3"). The interaction difficulty
+    is equal to the ally's starting vitality. If successful,
+    the ally gains 1 point of vitality back. On a critical
+    success, they gain 2.
+  is_rare: false
+  rare_cost: 0
+Targeting Scope:
+  cost: 5
+  slots: 1
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    A targeting scope can be used to expose the weakpoints
+    of an enemy soldier using an Interaction. The enemy must
+    be in line-of-sight and the interaction difficulty is equal to
+    the enemy's current vitality. If successful, the enemy doesn't
+    gain the benefit of cover, defense or the items chameleon
+    weave and cloaking field for the rest of the game turn.
+  is_rare: true
+  rare_cost: 1
+Rallying Banner:
+  cost: 5
+  slots: 1
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    A glorius banner or icon that inspires soldiers within short
+    range (9") and serves as a beacon for arriving reinforcements.
+    Friendly shaken soldiers that are activated within its range
+    may recover their lost action points (AP) on an even roll of
+    a desperate D6. The banner also serves as a reinforcement site,
+    sharing the rules of one.
+  is_rare: true
+  rare_cost: 1
+Comms Unit:
+  cost: 7
+  slots: 0
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    A comms unit allow squad abilities to be ordered more
+    effectively across the squad. While a soldier with a comms
+    unit is in the combat zone, roll a desperate D6 for each
+    squad point (SP) spent by their squad. On every even roll,
+    an SP is refunded.
+  is_rare: true
+  rare_cost: 1
+Tactical Shield:
+  cost: 2
+  slots: 1
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    A tactical shield, which grants a permanent +1 defense.
+  is_rare: false
+  rare_cost: 0
+Bulwark Shield:
+  cost: 3
+  slots: 2
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    A big, sturdy shield, which grants a permanent +2 defense
+    and adds a shield bash strike, a strike that can only cause
+    the target to be shaken (instead of causing damage).
+  is_rare: false
+  rare_cost: 0
+Guardian Field:
+  cost: 2X
+  slots: 0
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    An advanced force field which grants a permanent +2
+    defense, without the need for any slot usage.
+  is_rare: true
+  rare_cost: 1
+Chameleon Weave:
+  cost: 2X
+  slots: 0
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    Sheathed in chameleon weave, soldiers blend right in! They
+    cannot be attacked beyond medium range (18") and attacks
+    beyond short range (9") become desperate.
+  is_rare: false
+  rare_cost: 0
+Cloaking Field:
+  cost: 3X
+  slots: 0
+  range: 0
+  attack_dice: 0
+  dmg: 0
+  special_rules: []
+  type: item
+  rules: >
+    High-tech cloaking fields make soldiers near-invisible! They
+    cannot be attacked beyond short range (9") and all other
+    attacks become desperate.
+  is_rare: true
+  rare_cost: 1

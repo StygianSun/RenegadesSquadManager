@@ -1,0 +1,7 @@
+Ability: abilities.yaml
+Equipment: equipment.yaml
+Mastery: masteries.yaml
+MasteryPower: mastery_powers.yaml
+SoldierType: soldier_types.yaml
+SquadRules: squad_rules.yaml
+Upgrade: upgrades.yaml

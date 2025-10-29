@@ -1,0 +1,186 @@
+Hunters:
+  type: General
+  powers:
+  - Hunt Target
+  - Lay Trap
+  only_one_of_type: false
+Grenadiers:
+  type: General
+  powers:
+  - Throw Grenade
+  - Throw Bundled Grenade
+  only_one_of_type: false
+Die-Hards:
+  type: General
+  powers:
+  - Desperate Last Stand
+  - Cheating Death
+  only_one_of_type: false
+Terror Troops:
+  type: General
+  powers:
+  - Gruesome Demise
+  - Unnerving Presence
+  only_one_of_type: false
+Toxers:
+  type: General
+  powers:
+  - Throw Tox Grenade
+  - Toxicity
+  only_one_of_type: false
+Regenerators:
+  type: General
+  powers:
+  - Recover
+  - Cling To Life
+  only_one_of_type: false
+Ordnance Masters:
+  type: General
+  powers:
+  - Request Artillery
+  - Quadrant Eradicatus
+  only_one_of_type: false
+Trenchers:
+  type: General
+  powers:
+  - Dig In!
+  - Fix Bayonets!
+  only_one_of_type: false
+Adrenal Fiends:
+  type: General
+  powers:
+  - Stim-Boost
+  - Surge
+  only_one_of_type: false
+Grizzled Veterans:
+  type: General
+  powers:
+  - Shrug It Off
+  - Cool Under Pressure
+  only_one_of_type: false
+Marksmen:
+  type: Ranged
+  powers:
+  - Make the Shot Count
+  - Eagle-Eyed
+  only_one_of_type: false
+Gunslingers:
+  type: Ranged
+  powers:
+  - Quick Draw
+  - Right Between the Eyes
+  only_one_of_type: false
+Shock Troops:
+  type: Ranged
+  powers:
+  - Run and Gun
+  - Throw Smoke Grenade
+  only_one_of_type: false
+Munition Specialists:
+  type: Ranged
+  powers:
+  - Piercing Ammo
+  - Incendiary Ammo
+  only_one_of_type: false
+Fireteam:
+  type: Ranged
+  powers:
+  - Return Fire
+  - Targeting Marker
+  only_one_of_type: false
+Gun Fanatics:
+  type: Ranged
+  powers:
+  - Unload!
+  - Quantity Over Quality
+  only_one_of_type: false
+Bloodseekers:
+  type: Melee
+  powers:
+  - Rush of Blood
+  - Frenzy
+  only_one_of_type: false
+Berserkers:
+  type: Melee
+  powers:
+  - Reckless Charge
+  - Relentless Strikes
+  only_one_of_type: false
+Strike Dancers:
+  type: Melee
+  powers:
+  - Wind Strikes
+  - Dodge
+  only_one_of_type: false
+Guardians:
+  type: Melee
+  powers:
+  - Meet The Enemy
+  - Triumphant Defense
+  only_one_of_type: false
+Commandos:
+  type: Mobility
+  powers:
+  - Scale Obstacle
+  - Rig Explosives
+  only_one_of_type: false
+Rangers:
+  type: Mobility
+  powers:
+  - Flank 'Em!
+  - Steady Marchers
+  only_one_of_type: false
+Skyborne:
+  type: Mobility
+  powers:
+  - Drop Soldier
+  - Request Strafing Run
+  only_one_of_type: false
+Breachers:
+  type: Mobility
+  powers:
+  - Breach!
+  - Throw Stun Grenade
+  only_one_of_type: false
+Guerillas:
+  type: Stealth
+  powers:
+  - Hit And Run
+  - Setup Ambush Zone
+  only_one_of_type: false
+Infiltrators:
+  type: Stealth
+  powers:
+  - In To / Out of The Shadows
+  - Low Profile
+  only_one_of_type: false
+Deceivers:
+  type: Stealth
+  powers:
+  - Mistaken Identity
+  - Phantom Identities
+  only_one_of_type: false
+Saboteurs:
+  type: Stealth
+  powers:
+  - Critical Sabotage
+  - Transmission Intercept
+  only_one_of_type: false
+Heroes:
+  type: Wildcard
+  powers:
+  - Moment of Triumph
+  - A Hero's Burden
+  only_one_of_type: true
+Cannon Fodder:
+  type: Wildcard
+  powers:
+  - Always Another Wave
+  - Poor Combat Discipline
+  only_one_of_type: true
+League of Psymancers:
+  type: Wildcard
+  powers:
+  - Conjure Psychic Power
+  - Arcane Knowledge
+  only_one_of_type: true

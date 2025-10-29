@@ -1,0 +1,194 @@
+Minion:
+  vitality: 1
+  max_slots: 1
+  ap: 2
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Normal
+  abilities:
+  - Evasive Rascal
+  - Low Standing
+  upgrades:
+  - Big Lil' Soldier
+  - Extra Slot
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: false
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true
+Hover Drone:
+  vitality: 1
+  max_slots: 2
+  ap: 2
+  base_move: 9
+  dash_move: D6
+  move_type:
+  - Normal
+  - Leap
+  abilities:
+  - Evasive Rascal
+  - Anti-Grav Motor
+  upgrades:
+  - Targeting Scanner
+  - Advanced Combat Drone
+  cost: 5
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: true
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true
+Hound:
+  vitality: 1
+  max_slots: 0
+  ap: 2
+  base_move: 9
+  dash_move: 2D6
+  move_type:
+  - Normal
+  abilities:
+  - Evasive Rascal
+  - Clenching Bite
+  upgrades:
+  - Direhound
+  cost: 5
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: false
+  items_allowed: false
+  equipment_allowed: false
+  melee_allowed: false
+Swarm:
+  vitality: 4
+  max_slots: 0
+  ap: 2
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Normal
+  abilities:
+  - Evasive Rascal
+  - Pesky Swarm
+  upgrades:
+  - Soaring Swarm
+  cost: 9
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: false
+  items_allowed: false
+  equipment_allowed: false
+  melee_allowed: false
+Trooper:
+  vitality: 2
+  max_slots: 2
+  ap: 2
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Normal
+  abilities:
+  - Reinforcements!
+  upgrades:
+  - Hardened
+  - L.E.A.P. Device
+  - Mount
+  - Extra Slot
+  cost: 6
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: true
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true
+Elite:
+  vitality: 3
+  max_slots: 3
+  ap: 3
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Normal
+  abilities:
+  - Instinctive Reactions
+  upgrades:
+  - Hardened (Elite)
+  - L.E.A.P. Device (Elite)
+  - Mount (Elite)
+  - Hyper Elite
+  - Extra Slot
+  cost: 10
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: true
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true
+Gun Crew:
+  vitality: 4
+  max_slots: 4
+  ap: 2
+  base_move: 6
+  dash_move: D3
+  move_type:
+  - Grounded
+  abilities:
+  - Reinforcements!
+  - Big Bulky Gun
+  upgrades:
+  - Gun Shield
+  cost: 15
+  is_rare: true
+  rare_cost: 1
+  rares_allowed: true
+  items_allowed: false
+  equipment_allowed: true
+  melee_allowed: false
+Heavy:
+  vitality: 4
+  max_slots: 4
+  ap: 2
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Breach
+  - Grounded
+  abilities:
+  - Unstoppable Juggernaut
+  upgrades:
+  - Battlesuit
+  - Tactical Ironclad Armour
+  - Attached Gun
+  - Attached Gun
+  - Extra Slot
+  - Extra Slot
+  cost: 16
+  is_rare: false
+  rare_cost: 0
+  rares_allowed: true
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true
+Monstrosity:
+  vitality: 6
+  max_slots: 6
+  ap: 2
+  base_move: 6
+  dash_move: D6
+  move_type:
+  - Breach
+  - Grounded
+  abilities:
+  - Unstoppable Juggernaut
+  - Horrid Physiology
+  upgrades:
+  - Leaping Terror
+  cost: 38
+  is_rare: true
+  rare_cost: 2
+  rares_allowed: true
+  items_allowed: true
+  equipment_allowed: true
+  melee_allowed: true

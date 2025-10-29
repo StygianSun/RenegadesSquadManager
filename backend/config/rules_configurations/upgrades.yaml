@@ -1,0 +1,457 @@
+Big Lil' Soldier:
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Big Personality
+  modifications:
+    vitality:
+      mod: equals
+      value: 2
+    rares_allowed:
+      mod: equals
+      value: true
+Extra Slot:
+  type: general
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - "+1 Slot"
+  modifications:
+    max_slots:
+      mod: add
+      value: 1
+Targeting Scanner:
+  type: general
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Exposed Target
+  modifications: {}
+Advanced Combat Drone:
+  type: general
+  cost: 4
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - XL Drone
+  modifications:
+    vitality:
+      mod: equals
+      value: 2
+    max_slots:
+      mod: equals
+      value: 3
+Direhound:
+  type: general
+  cost: 4
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Killer K9
+  modifications:
+    vitality:
+      mod: equals
+      value: 2
+    weapon:
+      bite:
+        rules:
+          mod: add
+          value: piercing
+Soaring Swarm:
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Airborne Vermin
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    move_type:
+      mod: add
+      value:
+      - Leap
+Hardened:
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Hardened
+  modifications: {}
+Hardened (Elite):
+  type: general
+  cost: 7
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Hardened
+  modifications: {}
+L.E.A.P. Device:
+  type: general
+  cost: 4
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Leap Into Battle
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    move_type:
+      mod: add
+      value:
+      - Leap
+L.E.A.P. Device (Elite):
+  type: general
+  cost: 5
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Leap Into Battle
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    move_type:
+      mod: add
+      value:
+      - Leap
+Mount:
+  type: general
+  cost: 6
+  is_rare: false
+  rare_cost: 0
+  has_options:
+  - Mount-Attached Gun
+  abilities:
+  - Blessing of Speed
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    dash_move:
+      mod: equals
+      value: 2D6
+    move_type:
+      mod: add
+      value:
+      - Grounded
+Mount (Elite):
+  type: general
+  cost: 7
+  is_rare: false
+  rare_cost: 0
+  has_options:
+  - Mount-Attached Gun (Elite)
+  abilities:
+  - Blessing of Speed
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    dash_move:
+      mod: equals
+      value: 2D6
+    move_type:
+      mod: add
+      value:
+      - Grounded
+Mount-Attached Gun:
+  type: general
+  cost: 2
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Servo Gun
+  modifications: {}
+Mount-Attached Gun (Elite):
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Servo Gun
+  modifications: {}
+Hyper Elite:
+  type: general
+  cost: 5
+  is_rare: true
+  rare_cost: 1
+  has_options: []
+  abilities:
+  - Hyper-Active
+  modifications:
+    ap:
+      mod: equals
+      value: 4
+Gun Shield:
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Bit of Protection
+  modifications: {}
+Battlesuit:
+  type: general
+  cost: 18
+  is_rare: true
+  rare_cost: 1
+  has_options: []
+  abilities:
+  - Thrusters & Stabilizers
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    move_type:
+      mod: add
+      value: 
+      - Leap
+    weapon_type:
+      ranged:
+        mod: add
+        value: hip fire
+Tactical Ironclad Armour:
+  type: general
+  cost: 18
+  is_rare: true
+  rare_cost: 1
+  has_options: []
+  abilities:
+  - Ironclad
+  modifications:
+    dash_move:
+      mod: equals
+      value: D3
+Attached Gun:
+  type: general
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Servo Gun
+  modifications: {}
+Leaping Terror:
+  type: general
+  cost: 6
+  is_rare: true
+  rare_cost: 1
+  has_options: []
+  abilities:
+  - Leaping Terror
+  modifications:
+    base_move:
+      mod: equals
+      value: 9
+    move_type:
+      mod: equals
+      value:
+      - Leap
+Drill Sergeant:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Is That All You Got?
+  modifications: {}
+Master Tactician:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Tactical Reassessment
+  modifications: {}
+Specialist:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Specialist
+  modifications: {}
+Master Crafter:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Master Crafter
+  modifications:
+    equipment:
+      all:
+        rare_cost:
+          mod: equals
+          value: 0
+Champion:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Champion
+  modifications: {}
+Herald of Fury:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Herald of Fury
+  modifications: {}
+Pathfinder:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Pathfinder
+  modifications: {}
+Salvo Master:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Salvo Master
+  modifications: {}
+Lord Protector:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Lord Protector
+  modifications: {}
+The Faceless:
+  type: leadership
+  cost: 1
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - The Faceless
+  modifications: {}
+Psymancer:
+  type: psymancer
+  cost: 2
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Psymancer
+  modifications:
+    psychic_powers: 2
+Master Psymancer:
+  type: psymancer
+  cost: 3
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Master Psymancer
+  modifications:
+    psychic_powers: 3
+Nether Shield:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Nether Shield
+  modifications: {}
+The Exalted One:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - The Exalted One
+  modifications: {}
+Summoning Call:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Summoning Call
+  modifications: {}
+Shatter Mind:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Shatter Mind
+  modifications: {}
+Wall of Torment:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Wall of Torment
+  modifications: {}
+Puppet Master:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Puppet Master
+  modifications: {}
+Blood Ritual:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Blood Ritual
+  modifications: {}
+Spirit Surge:
+  type: psychic_power
+  cost: 0
+  is_rare: false
+  rare_cost: 0
+  has_options: []
+  abilities:
+  - Spirit Surge
+  modifications: {}

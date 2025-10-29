@@ -1,0 +1,710 @@
+Hunt Target:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    During your activation, select a single enemy
+    soldier and place a special effects token next to
+    them. For the rest of the game turn, any rolls of
+    1 against this target count as critical hits.
+Lay Trap:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows your active soldier to perform an Interaction
+    (difficulty 1) to lay a trap within their
+    proximity (3"), using a special effects token.
+    Any enemy that Moves within melee range (1") of the trap
+    is immediately immobilized, loses any remaining action
+    points (AP) and must perform an Interaction (difficulty 2)
+    to disarm the trap and regain the ability to Move. The trap
+    is removed when triggered. Only 3 traps may be active at
+    once. Cannot be performed while engaged.
+Throw Grenade:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows your active soldier to throw a grenade
+    using a Firing action, instead of using a normal
+    ranged weapon. A grenade is a ordnance weapon
+    with short range (9"), damage 1 and a duration of 1.
+Throw Bundled Grenade:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    Works exactly like a regular GRENADE,
+    except that range is reduced to 3+D3",
+    or 3+D6" when Focus Firing (2 AP), the damage
+    is increased to 2 and the attack becomes piercing. Range is
+    determined before deciding on a target.
+Desperate Last Stand:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    When a friendly soldier is reduced to 0 vitality
+    and about to be taken out, this ability allows
+    them to perform a final 1 AP action as a reaction,
+    but any rolls become desperate. If this final action
+    triggers a free action of some kind, they may perform that
+    too. If they manage to take out their would-be killer (the enemy
+    soldier who took them out), they are not taken out and
+    are restored back to 1 vitality. Otherwise, they are simply
+    taken out unless CHEATING DEATH succeeds.
+Cheating Death:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When a friendly soldier is taken out and about to
+    be removed, roll a fluke roll. On a roll of 6, the
+    soldier survives with 1 vitality remaining. This
+    roll is performed after any DESPERATE LAST STAND
+    attempt has been made.
+Gruesome Demise:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    When an enemy is taken out at short range (9")
+    or closer, this ability may be used to ensure that
+    the enemy is dispatched with intimidating cruelty.
+    Any enemy within D6 of the target becomes shaken.
+    Also, raise the terror level by 1, or by 2 if the
+    target had a starting vitality of 4 or more.
+Unnerving Presence:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Whenever an enemy soldier is activated within
+    short range (9") of a terror troop soldier, they
+    must roll a D6 and unless the roll is higher
+    than the terror level they are gripped by fear and count as
+    shaken during their activation. The terror level is initially 1,
+    but is increased by each GRUESOME DEMISE.
+    Use a D6 to keep track of the current level. If it becomes 6
+    or higher, the enemy roll becomes a fluke roll.
+Throw Tox Grenade:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows your active soldier to throw a tox nade
+    using a Firing action (instead of Firing normally).
+    It is thrown to a location within short range
+    (9"), which doesn't have to be in line-of-sight (measure the
+    range as you would leap movement). It has no immediate
+    effect, instead creating TOXICITY around its token.
+    Only 3 tox grenades may be active at once. If an
+    additional one is thrown, a prior one must be removed.
+Toxicity:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When enemy soldiers are activated within proximity
+    (3") of your tox troops or a TOX GRENADE,
+    but before they perform any actions, they must
+    roll a D6. Unless they roll higher than the vitality of the
+    nearest tox trooper, they take 1 damage. TOX GRENADES,
+    "count as" having a vitality of 3.
+Recover:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    This ability allows your active soldier to heal
+    themselves using a free Interaction (difficulty
+    1). A success restores 1 point of vitality, while a
+    critical success restores 2 points. The ability costs 2 SP if
+    the healing soldier is hardened.
+Cling To Life:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    After a friendly soldier is taken out (and after
+    any special rules/squad abilities have been
+    used to try and prevent this), this ability may be
+    used to have them cling to life. Instead of removing the soldier
+    from the combat zone as normal, gently tip the model
+    over. The soldier may not perform any actions, except for
+    the RECOVER Interaction. While clinging to
+    life, taking any damage results in being taken out. If healed
+    back to at least 1 vitality, the soldier is returned to normal.
+Request Artillery:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    Allows your active soldier to use a Fire action to
+    request an artillery strike, which functions like
+    an ordnance weapon with medium range (18"),
+    damage 2 and duration 2. However, the blast radius is
+    determined using 3D3" instead.
+Quadrant Eradicatus:
+  is_epic: true
+  is_passive: false
+  sp_cost: 5
+  rules: >
+    Allows your active soldier to use an Interaction
+    (difficulty 1) to contact high command and request
+    that a combat sector be eradicated. Select
+    a table quadrant (one corner of the combat zone, 1/4th of
+    its total size). Set a duration of 2. After the duration, any
+    and all soldiers and removeable terrain pieces fully within
+    that quadrant are taken out/removed. Can only be used
+    once per game.
+Dig In!:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    This ability allows a soldier to perform an
+    Interaction (difficulty 1), which grants them the
+    benefit of cover without needing to be behind
+    cover in the usual way. Place a special effects token next to
+    the soldier. The ability lasts until the soldier Moves in any
+    way. Cannot be performed while engaged.
+Fix Bayonets!:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    When this ability is used, all soldiers without a
+    melee weapon gain a normal 1 damage strike
+    (in addition to their desperate strike). However,
+    as they ready for hand-to-hand combat, their marksmanship
+    is deemphasized and they no longer score crits when
+    Firing. These effects last for the rest of the game turn.
+Stim-Boost:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows the active soldier to gain 1 additional
+    action point (AP) during their activation, but if it
+    is used to Fight or Fire, all rolls are desperate.
+    Also, a desperate D6 must be rolled. Unless an even roll is
+    scored, the soldier also loses 1 point of vitality.
+Surge:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    Allows an expended soldier to be activated
+    again, but any Fight or Fire rolls are desperate
+    and they lose 1 point of vitality. If this reduces
+    them to 0 vitality, they may first perform their actions and
+    then, if they roll an even number on a desperate D6, they
+    survive with 1 vitality, otherwise they are taken out.
+Shrug It Off:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    This ability is used when a soldier is activated
+    and allows them to recover from the shaken effect,
+    regaining their full action points (AP). This
+    ability costs 1 SP if the soldier recovers 1 AP by not being
+    shaken, and 2 SP for recovering 2 AP (like elites).
+Cool Under Pressure:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When grizzled veterans are about to become
+    shaken, roll a desperate D6. On an even roll,
+    they do not become shaken.
+Make the Shot Count:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    This ability improves the first shot roll of a Firing
+    action by either 1 or 2, up to a maximum of
+    6, depending on how many SPs are spent (e.g.
+    a roll of 3 becomes either a 4 or 5). Decide before you roll.
+    If the ranged weapon used has multiple shots, roll the first
+    one separately (the remaining shots are not improved due
+    to recoil). Cannot be used on desperate or fluke rolls.
+Eagle-Eyed:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Marksmen can stretch the effective range of
+    their ranged weapons. Weapons that have a
+    shorter range than medium range (18") gain 3"
+    of range, while medium range (18") weapons gain 6". Does
+    not apply to flame weapons.
+Quick Draw:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    At short range (9") or closer, after a soldier has
+    completed a Firing action, this ability allows
+    the soldier to Fire (1 AP) again, at no AP cost,
+    picking a different target if desired, but any rolls become
+    desperate. This ability costs 1 SP when used with pistol
+    type weapons and 2 SP with any other type of ranged
+    weapon. Additionally, this ability may be repeated, after the
+    same original Firing action, as many times as your reserve
+    of squad points (SP) allow if a pistol is used (otherwise it
+    may only be used once each time).
+Right Between the Eyes:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When gunslingers target enemies at short
+    range (9") or closer, they can score critical hits
+    even if there are rules that normally prevent
+    them from being scored!
+Run and Gun:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    If a soldier is within proximity (3") of a friendly
+    soldier targeted by an enemy Firing action, they
+    may use this ability to perform a Firing (1 AP)
+    action as a reaction against that enemy, provided that the
+    enemy is within range and line-of-sight. Cannot be used
+    if the soldier wishing to return fire was also damaged or
+    shaken by the enemy attack.
+Throw Smoke Grenade:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows the active soldier to throw a smoke
+    grenade using an Interaction (difficulty 0). Place
+    a special effects token within short range (9") of
+    the soldier. Any Firing actions where line-of-sight passes
+    over the token or within proximity (3") of it must use fluke
+    rolls. The smoke has a duration of 2.
+Piercing Ammo:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    Used during a Firing action to temporarily give
+    a ranged weapon the piercing special rule. If
+    the weapon is piercing already, it becomes
+    hyper-piercing and may be used to ignore ironclad armour.
+    The ability costs 2 SP if the weapon has multiple shots.
+Incendiary Ammo:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    Transforms a ranged weapon into a flame weapon
+    with short range (9") and damage 1 during
+    a Firing action. If the weapon used is a flame
+    weapon already, it becomes hyper-incendiary and increases
+    its range by 3" and its hit roll by 3 (up to a maximum of
+    6). The ability costs 2 SP if the weapon has multiple shots.
+Return Fire:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    If a soldier is within proximity (3") of a friendly
+    soldier targeted by an enemy Firing action, they
+    may use this ability to perform a Firing (1 AP)
+    action as a reaction against that enemy, provided that the
+    enemy is within range and line-of-sight. Cannot be used
+    if the soldier wishing to return fire was also damaged or
+    shaken by the enemy attack.
+Targeting Marker:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Instead of Firing regularly, a soldier may shoot
+    a targeting marker (using the same maximum
+    range as an equipped range weapon). A targeting
+    marker automatically hits its target but causes no damage.
+    Instead, the targeted enemy doesn't gain the benefit of
+    cover, defense or the items chameleon weave and cloaking
+    field for the rest of the game turn.
+Unload!:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    During a Focus Firing (2 AP) action, this ability
+    can be used to temporarily double a ranged
+    weapon's number of shots, instead of allowing
+    rerolls, and make the weapon suppressive. If the weapon
+    already is suppressive, this ability extends the range of the
+    suppression effect of the weapon by D3".
+Quantity Over Quality:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When a gun fanatic is Firing, any miss adds a
+    fluke shot to the current Firing action. These
+    fluke shots cannot generate further shots!
+Rush of Blood:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    After defeating an enemy in melee range (1"),
+    a soldier may use this ability to keep the momentum
+    up and freely Fight (1 AP) a different
+    enemy or, if there are no eligible targets to Fight, they may
+    instead freely Move (1 AP) to charge a different enemy,
+    including freely Fighting (1 AP) that enemy as part of the
+    charge. These options are possible even if the soldier has
+    already Fought and/or Moved. Cannot be used if there are
+    no eligible targets to either Fight or charge.
+Frenzy:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Bloodseekers caught in bloodshed find it easy
+    to keep going! Whenever a successful strike is
+    scored, bloodseekers get to roll an additional
+    fluke strike with the same weapon that scored the initial
+    strike. This can potentially repeat to create another fluke
+    strike! Yeah, holy crap.
+Reckless Charge:
+  is_epic: false
+  is_passive: false
+  sp_cost: 0
+  rules: >
+    After the movement distance of a Move is
+    determined, this ability can be used to add 3" of
+    distance, provided that the soldier can, and will,
+    use the Move to charge an enemy. If used, all strikes in the
+    subsequent Fight action become desperate (strikes that are
+    already desperate or flukes simply remain so).
+Relentless Strikes:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1/2/3
+  rules: >
+    When about to Fight, this ability allows a soldier
+    to gain either 1, 2 or 3 strikes with one equipped
+    melee weapon, depending on how many SPs are
+    spent, but each added strike is desperate (or flukes if the
+    weapon already uses desperate or fluke rolls). If the soldier
+    has no melee weapon, they may use this ability to gain
+    fluke strikes in addition to their normal desperate strike.
+Wind Strikes:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    After completing a Move, a soldier may use this
+    ability to use the Fight action to allocate strikes
+    against any enemy they passed within proximity
+    (3") of during the previous Move, allowing them to effectively
+    attack enemies on the go. May not use cataclysmic
+    weapons with this ability.
+Dodge:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    When targeted by an enemy Fire or Fight action
+    or reaction, a skillful dodge allows a soldier to
+    reaction Move up to 3" before any rolls are performed.
+    The enemy action is then performed with this new
+    position in mind, which may mean that the dodging soldier
+    is behind cover, out of range, further from a blast or out of
+    line-of-sight which may make the action more difficult or
+    fail outright.
+Meet The Enemy:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    When an enemy is about to Fight, but before any
+    rolls are made, guardians may use this ability to
+    gain +1 or +2 defense depending on the amount
+    of SPs spent. However, if the charged soldier already has
+    +2 defense (max amount), they get to reaction Fight (1 AP)
+    or Furiously Fight (2 AP) before the enemy (depending on
+    amount of SPs used), but all strikes become desperate.
+Triumphant Defense:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Whenever they defeat an enemy in melee range
+    (1"), guardians quickly resume a defensive posture,
+    gaining +1 defense. If they already have +2
+    defense, they may perform a free 1 AP action.
+Scale Obstacle:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows a soldier with the normal movement type
+    to temporarily gain the leap movement type
+    during a Move action. If a soldier already has
+    leap, this allows them to treat any dash roll as 6. However,
+    if a soldier is grounded, this ability only changes their
+    movement type to normal instead of leap.
+Rig Explosives:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    Allows a soldier to plant explosives within their
+    proximity (3"), using an Interaction (difficulty 1)
+    and a special effects token. The explosives have
+    a duration of 2, after which they "hit" and function like a
+    blast weapon with damage 1, except that the blast radius is
+    2D6". If the explosives are placed on, or are within melee
+    range (1") of, a removable terrain piece or an objective,
+    they are destroyed and removed from play. Any soldiers
+    standing on the terrain piece are taken out. Enemies can
+    attempt to disarm the explosives using an Interaction
+    (difficulty 4). Usable once per game.
+Flank 'Em!:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    When one of your soldiers is about to Move, this
+    ability allows them to end that Move beyond the
+    edge of the combat zone, thereby leaving it. In
+    the next game turn, upon their activation, they can be redeployed
+    anywhere along the same combat zone edge (within
+    melee range (1") of the edge, but outside melee range (1")
+    of enemes). This redeployment does not count as an action
+    and the soldier may spend all of their action points (AP) as
+    normal.
+Steady Marchers:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Rangers might not always be the quickest, but
+    they are consistent and reliable on the march.
+    Any time a dash roll is about to be performed,
+    a ranger may choose to treat any die roll as 4 instead of
+    rolling it (for example, 2D6" can be treated as 8"). When a
+    D3 is used, this ability may be used to count it as 2.
+Drop Soldier:
+  is_epic: false
+  is_passive: false
+  sp_cost: 0
+  rules: >
+    A skyborne squad may opt to not deploy any
+    amount of soldiers during the initial deployment,
+    instead using this ability to deploy the soldiers
+    later. At the start of each game turn, any undeployed
+    soldiers may use this ability to be dropped anywhere in the
+    combat zone that is not within proximity (3") of an enemy.
+    Dropped soldiers always count as expended initially. This
+    ability may be used when reinforcing troopers in game turn
+    4 or later. SP cost is per soldier.
+Request Strafing Run:
+  is_epic: true
+  is_passive: false
+  sp_cost: 3
+  rules: >
+    Allows the active soldier to use an Interaction
+    (difficulty 0) to request a strafing run. Place a
+    special effects token anywhere in the combat
+    zone and a second one within 3D6" of the first one. The
+    request has a duration of 2. When the duration ends, any
+    soldier within proximity (3") of the tokens or the line between
+    them becomes shaken and a fluke roll is performed
+    for each one - if successful, that particular soldier suffers 1
+    damage. Usable once per game.
+Breach!:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows a soldier to temporarily gain the breach
+    movement type when they are about to make
+    a Move. Any enemy within D6" of the breach
+    "exit" suffers 1 point of damage. If the soldier already has
+    the breach movement type, this becomes within 6" instead.
+Throw Stun Grenade:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Allows a soldier to throw a stun grenade using
+    a free Interaction (AP 1, difficulty 1). The stun
+    grenade functions like a ordnance weapon with
+    short range (9"), damage 0 and duration 1. Any target hit
+    by the stun grenade is merely shaken.
+Hit And Run:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    After a guerrilla soldier Fires or Fights, they
+    may use this ability to Move D6" as a free action
+    (even if they have Moved). Any reaction that
+    their attack or this free Move triggers is delayed until after
+    the Move is complete, which can make it more difficult or
+    fail (due to lack of line-of-sight or so). When a minion uses
+    this ability, it simply adds D6" to their scamper Move.
+Setup Ambush Zone:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    Place a special effects token anywhere in the
+    combat zone to represent your ambush zone.
+    Any enemy that ends a Move within short range
+    (9") of the token may be reaction Fired (1 AP) upon or reaction
+    charged by 1 friendly soldier within short range (9")
+    of the token (your choice of soldier). If the charge option is
+    selected, your soldier may both Move into melee range (1")
+    with the enemy and Fight (1 AP) freely. Only one ambush
+    zone may be active at once.
+In To / Out of The Shadows:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Upon finishing a Move, an infiltrator may fade
+    into the shadows and remove themselves from
+    the combat zone. The infiltrator must be out of
+    short range (9") or line-of-sight of any enemy when this
+    ability is used (either is enough). In a later game turn (not
+    necessarily the next), when this ability is used again and
+    the same infiltrator is activated, they may return to the
+    combat zone in any location which fulfils the same restrictions
+    as above. Reappearing counts as a Move (1 AP).
+Low Profile:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    When an infiltrator in cover is the target of an
+    enemy Fire action, roll a D6. The range of the
+    enemy weapon is reduced by this amount, in
+    inches, down to a minimum of short range (9"). If their
+    range becomes insufficient, the action fails outright.
+Mistaken Identity:
+  is_epic: false
+  is_passive: false
+  sp_cost: 1/2
+  rules: >
+    When a soldier is activated, but before they
+    perform any actions, this ability can be used to
+    have them swap positions with a friendly soldier
+    within medium range (18"). If both soldiers are of the same
+    basic type (Minion/Trooper/Elite/Heavy) or a Phantom
+    Identity is used, the ability costs 1 SP to use,
+    but if they are of different types it costs 2 SP to use.
+Phantom Identities:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Tricksters have devious ways of making you
+    think that they are where they are not, or vice
+    versa. During deployment, you may deploy a
+    phantom for every 2 soldiers in your squad (maximum of 3
+    phantoms). A phantom can be activated like a soldier, but
+    may only Move 6" each activation (normal movement type).
+    If an enemy comes within proximity (3") of a phantom, it
+    is destroyed. Use empty bases or special effects tokens to
+    represent phantoms.
+Critical Sabotage:
+  is_epic: true
+  is_passive: false
+  sp_cost: 2
+  rules: >
+    When an enemy activates a soldier, but before
+    they declare which actions that soldier will
+    perform, this ability may be used to prevent the
+    soldier from performing one type of action of your choice
+    during their activation (Move, Defend, Fire Weapon, Fight).
+    Can only be performed once per enemy soldier.
+Transmission Intercept:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    Whenever an enemy soldier is within short
+    range (9") of a friendly saboteur, any squad
+    points (SP) your opponent spends have a
+    chance of being intercepted. Roll a fluke roll for each squad
+    point (SP) the enemy spends this way. On any roll of 6, the
+    saboteur squad gains an extra squad point (SP).
+Moment of Triumph:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Whenever it is time to roll shots, strikes, dashes
+    or initiative, this ability may be used, before
+    any rolls are made, to double the results of all
+    the dice in that roll, up to a maximum of 6 (e.g. a roll of 2
+    counts as 4 etc). If this results in an enemy being taken out,
+    this ability may be used again in the current game turn!
+A Hero's Burden:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    A heroic squad roster may only cost half as
+    many credits as the agreed upon limit. However,
+    heroes can be activated twice. After all heroes
+    have been activated once, you may start activating them
+    again in any order (place a second expended token next to
+    a hero that has been activated twice). If a hero becomes
+    shaken, that state only applies to their next activation
+    during the current game turn.
+Always Another Wave:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    In a cannon fodder squad, troopers reinforce
+    the squad every game turn (not just in turn 4).
+    If a reinforcement site is blocked by an enemy
+    presence, they may still arrive - but count as shaken.
+Poor Combat Discipline:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    All troopers in a cannon fodder squad must use
+    desperate rolls when Firing or Fighting, unless
+    the rolls are desperate already, in which case
+    they become flukes (flukes simply remain so). Lastly, cannon
+    fodder troopers become shaken from all misses.
+Conjure Psychic Power:
+  is_epic: true
+  is_passive: false
+  sp_cost: 1
+  rules: >
+    Any soldier in your squad may use this ability to
+    use a psychic power, using the same rules as if
+    they were a normally trained psymancer (and
+    not a master psymancer).
+Arcane Knowledge:
+  is_epic: false
+  is_passive: true
+  sp_cost: 0
+  rules: >
+    You may only select three psychic powers that
+    can be used with CONJURE PSYCHIC POWER.
+    These must be presented to your opponent as
+    part of your squad masteries. However, your squad may
+    also train a psymancer "as normal" (if you so desire), and
+    that psymancer may choose psychic powers that differ
+    from your squad's overall choices.
