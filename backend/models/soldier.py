@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 from backend.models.soldier_type import SoldierType
 from backend.models.upgrade import Upgrade
 from backend.models.equipment import Equipment
@@ -7,40 +9,57 @@ import traceback
 
 logger = logging.getLogger(__name__)
 
+# Module-level cached Config singleton used when callers don't provide a DataManager
+_SOLDIER_CONFIG = None
+
+def _get_config():
+    """Lazily import and return a cached Config instance to avoid circular imports.
+
+    When callers pass a DataManager, its CONFIG is used. When callers omit it,
+    this function will import Config locally and cache an instance.
+    """
+    global _SOLDIER_CONFIG
+    if _SOLDIER_CONFIG is None:
+        from backend.config.config import Config
+        _SOLDIER_CONFIG = Config()
+    return _SOLDIER_CONFIG
+
 class Soldier():
 
-    def __init__(self, name: str = '', soldier_type: SoldierType = None, vitality: int = 0, max_slots: int = 0, cur_slots: int = 0,
-                 ap: int = 0, base_move: int = 0, dash_move: str = 'D0', move_type: list[str] = ['Normal'], 
-                 upgrades: list[Upgrade] = None, equipment: list[Equipment] = None, rares_allowed: bool = False,
+    def __init__(self, name: str = '', soldier_type: Optional[SoldierType] = None, vitality: int = 0, max_slots: int = 0, cur_slots: int = 0,
+                 ap: int = 0, base_move: int = 0, dash_move: str = 'D0', move_type: Optional[List[str]] = None, 
+                 upgrades: Optional[List[Upgrade]] = None, equipment: Optional[List[Equipment]] = None, rares_allowed: bool = False,
                  is_leader: bool = False, is_psymancer: bool = False):
         self.name: str = name
-        self.soldier_type: SoldierType = soldier_type
+        self.soldier_type: Optional[SoldierType] = soldier_type
         self.vitality: int = vitality
         self.max_slots: int = max_slots
         self.cur_slots: int = cur_slots
         self.ap: int = ap
         self.base_move: int = base_move
         self.dash_move: str = dash_move
-        self.move_type: list[str] = move_type if move_type is not None else ['Normal']
-        self.upgrades: list[Upgrade] = upgrades if upgrades is not None else []
-        self.equipment: list[Equipment] = equipment if equipment is not None else []
+        self.move_type: List[str] = move_type if move_type is not None else ['Normal']
+        self.upgrades: List[Upgrade] = upgrades if upgrades is not None else []
+        self.equipment: List[Equipment] = equipment if equipment is not None else []
         self.rares_allowed: bool = rares_allowed
         self.is_leader: bool = is_leader
-        self.leader_ability: Upgrade = None
+        self.leader_ability: Optional[Upgrade] = None
         self.is_psymancer: bool = is_psymancer
-        self.psymancer_ability: Upgrade = None
-        self.psychic_powers: list[Upgrade] = []
+        self.psymancer_ability: Optional[Upgrade] = None
+        self.psychic_powers: List[Upgrade] = []
         self.cost = 0
-        self.abilities: list[Ability] = []
+        self.abilities: List[Ability] = []
 
     def validateCost(self):
         try:
+            if self.soldier_type is None:
+                raise ValueError("Soldier has no soldier_type set")
             self.cost = self.soldier_type.cost
             for upgrade in self.upgrades:
                 self.cost += upgrade.cost
-            if self.is_leader:
+            if self.is_leader and self.leader_ability is not None:
                 self.cost += (self.vitality * self.leader_ability.cost)
-            if self.is_psymancer:
+            if self.is_psymancer and self.psymancer_ability is not None:
                 self.cost += (self.vitality * self.psymancer_ability.cost)
             for item in self.equipment:
                 if isinstance(item.cost, str):
@@ -53,13 +72,17 @@ class Soldier():
 
     def validateType(self, data_manager):
         try:
+            if self.soldier_type is None:
+                raise ValueError("Soldier has no soldier_type set")
+            # Allow callers to omit a DataManager by using a cached Config singleton
+            cfg = data_manager.CONFIG if data_manager is not None else _get_config()
             self.vitality = self.soldier_type.vitality
             self.max_slots = self.soldier_type.max_slots
             self.ap = self.soldier_type.ap
             self.base_move = self.soldier_type.base_move
             self.dash_move = self.soldier_type.dash_move
             self.move_type = self.soldier_type.move_type
-            self.abilities = [data_manager.CONFIG.ABILITIES[ability] for ability in self.soldier_type.abilities]
+            self.abilities = [cfg.ABILITIES[ability] for ability in self.soldier_type.abilities]
             self.cost = self.soldier_type.cost
             self.rares_allowed = self.soldier_type.rares_allowed
         except Exception as e:
@@ -68,8 +91,9 @@ class Soldier():
 
     def validateUpgrades(self, data_manager):
         try:
+            cfg = data_manager.CONFIG if data_manager is not None else _get_config()
             for upgrade in self.upgrades:
-                self.abilities.extend(data_manager.CONFIG.ABILITIES[ability] for ability in upgrade.abilities)
+                self.abilities.extend(cfg.ABILITIES[ability] for ability in upgrade.abilities)
                 for modification in upgrade.modifications:
                     if modification in ["weapon_type", "equipment", "weapon"]:
                         pass #Handle non-standard mods
@@ -95,8 +119,9 @@ class Soldier():
     def validateLeader(self, data_manager):
         try:
             if self.is_leader and self.leader_ability is not None:
+                cfg = data_manager.CONFIG if data_manager is not None else _get_config()
                 for ability in self.leader_ability.abilities:
-                    self.abilities.append(data_manager.CONFIG.ABILITIES[ability])
+                    self.abilities.append(cfg.ABILITIES[ability])
         except Exception as e:
             logger.exception("Leader validation failed: %s", e)
             raise e
@@ -104,16 +129,17 @@ class Soldier():
     def validatePsymancer(self, data_manager):
         try:
             if self.is_psymancer and self.psymancer_ability is not None:
+                cfg = data_manager.CONFIG if data_manager is not None else _get_config()
                 for ability in self.psymancer_ability.abilities:
-                    self.abilities.append(data_manager.CONFIG.ABILITIES[ability])
+                    self.abilities.append(cfg.ABILITIES[ability])
                 for power in self.psychic_powers:
                     for ability in power.abilities:
-                        self.abilities.append(data_manager.CONFIG.ABILITIES[ability])
+                        self.abilities.append(cfg.ABILITIES[ability])
         except Exception as e:
             logger.exception("Psymancer validation failed: %s", e)
             raise e
 
-    def validate(self, data_manager):
+    def validate(self, data_manager=None):
         try:
             self.validateType(data_manager)
             self.validateEquipment()
@@ -182,7 +208,7 @@ class Soldier():
     def toDict(self):
         soldier_dict = {}
         soldier_dict["name"] = self.name
-        soldier_dict["type"] = self.soldier_type.name
+        soldier_dict["type"] = self.soldier_type.name if self.soldier_type is not None else None
         soldier_dict["upgrades"] = [upgrade.name for upgrade in self.upgrades]
         soldier_dict["equipment"] = [equipment.name for equipment in self.equipment]
         soldier_dict["is_leader"] = self.is_leader

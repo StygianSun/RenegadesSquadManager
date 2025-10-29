@@ -1,12 +1,15 @@
+from typing import Optional, List
+
 from backend.models.soldier import Soldier
 from backend.models.mastery import Mastery
 
+
 class Squad():
-    def __init__(self, player_name: str = '', name: str = '', soldiers: list[Soldier] = None, masteries: list[Mastery] = None):
+    def __init__(self, player_name: str = '', name: str = '', soldiers: Optional[List[Soldier]] = None, masteries: Optional[List[Mastery]] = None):
         self.player_name: str = player_name
         self.name: str = name
-        self.soldiers: list[Soldier] = soldiers if soldiers is not None else []
-        self.masteries: list[Mastery] = masteries if masteries is not None else []
+        self.soldiers: List[Soldier] = soldiers if soldiers is not None else []
+        self.masteries: List[Mastery] = masteries if masteries is not None else []
         self.leader = next((soldier for soldier in self.soldiers if soldier.is_leader), None)
         self.psymancer = next((soldier for soldier in self.soldiers if soldier.is_psymancer), None)
         self.wildcard = next((mastery for mastery in self.masteries if mastery.only_one_of_type), None)
@@ -47,7 +50,7 @@ class Squad():
         soldier_to_duplicate = self.soldiers[soldier_index]
         if not soldier_to_duplicate.is_leader and not soldier_to_duplicate.is_psymancer:
             duped_soldier = Soldier(soldier_to_duplicate.name,
-                                    soldier_to_duplicate.type,
+                                    soldier_to_duplicate.soldier_type,
                                     soldier_to_duplicate.vitality,
                                     soldier_to_duplicate.max_slots,
                                     soldier_to_duplicate.cur_slots,
@@ -79,7 +82,7 @@ class Squad():
         total_rare_cost = 0
         for soldier in self.soldiers:
             soldier.validate(data_manager)
-            if soldier.soldier_type.is_rare:
+            if soldier.soldier_type is not None and soldier.soldier_type.is_rare:
                 total_rare_cost += soldier.soldier_type.rare_cost
             for upgrade in soldier.upgrades:
                 if upgrade.is_rare:

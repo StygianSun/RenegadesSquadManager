@@ -1,12 +1,15 @@
+from typing import Optional, List
+
+
 class Mastery():
-    def __init__(self, name: str = '', mastery_type: str = '', powers: list[str] = None, only_one_of_type: bool = False):
+    def __init__(self, name: str = '', mastery_type: str = '', powers: Optional[List[str]] = None, only_one_of_type: bool = False):
         self.name: str = name
         self.type: str = mastery_type
-        self.powers: list[str] = powers if powers is not None else []
+        self.powers: List[str] = powers if powers is not None else []
         self.only_one_of_type: bool = only_one_of_type
 
     @classmethod
-    def from_dict(cls, name: str = '', rules_dict: dict = ''):
+    def from_dict(cls, name: str, rules_dict: dict):
         mastery_type = rules_dict["type"]
         powers = rules_dict["powers"]
         only_one_of_type = rules_dict["only_one_of_type"]

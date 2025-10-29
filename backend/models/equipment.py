@@ -1,23 +1,26 @@
 
 
+from typing import Optional, List
+
+
 class Equipment():
     def __init__(self, name: str = '', cost: str = '0', slots: int = 0, range: int = 0, attack_dice: int = 0,
-                dmg: int = 0, special_rules: list[str] = [], type: str = '', rules: str = '', is_rare: bool = False,
-                rare_cost: int = 0):
+        dmg: int = 0, special_rules: Optional[List[str]] = None, type: str = '', rules: str = '', is_rare: bool = False,
+        rare_cost: int = 0):
         self.name: str = name
         self.cost: str = cost
         self.slots: int = slots
         self.range: int = range
         self.attack_dice: int = attack_dice
         self.dmg: int = dmg
-        self.special_rules: list[str] = special_rules
+        self.special_rules: List[str] = special_rules if special_rules is not None else []
         self.type: str = type
         self.rules: str = rules
         self.is_rare: bool = is_rare
         self.rare_cost: int = rare_cost
 
     @classmethod
-    def from_dict(cls, name: str = '', rules_dict: dict = None):
+    def from_dict(cls, name: str, rules_dict: dict):
         cost = rules_dict["cost"]
         slots = rules_dict["slots"]
         range = rules_dict["range"]

@@ -10,7 +10,7 @@ class MasteryPower():
         self.rules: str = rules
 
     @classmethod
-    def from_dict(cls, name: str = '', rules_dict: dict = None):
+    def from_dict(cls, name: str, rules_dict: dict):
         is_epic = rules_dict["is_epic"]
         is_passive = rules_dict["is_passive"]
         sp_cost = rules_dict["sp_cost"]

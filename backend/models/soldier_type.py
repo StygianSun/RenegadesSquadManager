@@ -1,7 +1,10 @@
+from typing import Optional, List
+
+
 class SoldierType():
     def __init__(self, name: str = '', vitality: int = 0, max_slots: int = 0, ap: int = 0, base_move: int = 0,
-                 dash_move: str = 'D0', move_type: list[str] = ['Normal'], abilities: list[str] = [],
-                 upgrades: list[str] = [], cost: int = 0, is_rare: bool = False, rare_cost: int = 0,
+                 dash_move: str = 'D0', move_type: Optional[List[str]] = None, abilities: Optional[List[str]] = None,
+                 upgrades: Optional[List[str]] = None, cost: int = 0, is_rare: bool = False, rare_cost: int = 0,
                  rares_allowed: bool = False, items_allowed: bool = False, equipment_allowed: bool = False,
                  melee_allowed: bool = False):
         self.name: str = name
@@ -10,9 +13,9 @@ class SoldierType():
         self.ap: int = ap
         self.base_move: int = base_move
         self.dash_move: str = dash_move
-        self.move_type: list[str] = move_type
-        self.abilities: list[str] = abilities
-        self.upgrades: list[str] = upgrades
+        self.move_type: List[str] = move_type if move_type is not None else ['Normal']
+        self.abilities: List[str] = abilities if abilities is not None else []
+        self.upgrades: List[str] = upgrades if upgrades is not None else []
         self.cost: int = cost
         self.is_rare: bool = is_rare
         self.rare_cost: int = rare_cost
@@ -22,7 +25,7 @@ class SoldierType():
         self.melee_allowed: bool = melee_allowed
 
     @classmethod
-    def from_dict(cls, name: str = '', rules_dict: dict = None):
+    def from_dict(cls, name: str, rules_dict: dict):
         vitality = rules_dict["vitality"]
         max_slots = rules_dict["max_slots"]
         ap = rules_dict["ap"]
