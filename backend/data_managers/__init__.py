@@ -1,4 +1,4 @@
-__all__ = {
+__all__ = [
     "data_manager",
     "file_manager"
-}
+]

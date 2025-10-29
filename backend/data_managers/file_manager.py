@@ -3,6 +3,9 @@ import os
 import sys
 from backend.models.squad import Squad
 import yaml
+import logging
+
+logger = logging.getLogger(__name__)
 
 class FileManager():
     def __init__(self):
@@ -10,27 +13,39 @@ class FileManager():
 
     def loadSquad(self):
         squad_data = None
-        with open(self.loaded_file, 'r') as file:
-            squad_data = yaml.safe_load(file)
-        return squad_data
+        if self.loaded_file is None:
+            raise ValueError("Loaded file not set")
+        try:
+            with open(self.loaded_file, 'r') as file:
+                squad_data = yaml.safe_load(file)
+            return squad_data
+        except Exception as e:
+            logger.exception(f"Failed to load squad from {self.loaded_file}: {e}")
     
     def saveSquad(self, squad: Squad = None):
         if squad.player_name == "" and (squad is None or squad.isEmpty()):
-            return
+            raise ValueError("Cannot save an empty squad without a player name")
+        if self.loaded_file is None:
+            raise ValueError("Loaded file not set")
         squad_dict = {}
         squad_dict["player_name"] = squad.player_name
         squad_dict["squad"] = squad.toDict()
-        with open(self.loaded_file, 'w') as file:
-            yaml.dump(squad_dict, file, sort_keys=False)
+        try:
+            with open(self.loaded_file, 'w') as file:
+                yaml.dump(squad_dict, file, sort_keys=False)
+        except Exception as e:
+            logger.exception(f"Failed to save squad to {self.loaded_file}: {e}")
         
     @staticmethod
     def read_config_file(file: str = ''):
         if getattr(sys, 'frozen', False):
-            base_path = Path(sys._MEIPASS)
+            config_file = Path(sys._MEIPASS) / "config" / file
         else:
-            base_path = Path(os.getcwd())
-        config_file = base_path / "config" / file
+            config_file = Path(os.getcwd()) / "backend" / "config" / "rules_configurations" / file
         data = None
-        with open(config_file, 'r') as file:
-            data = yaml.safe_load(file)
-        return data
+        try:
+            with open(config_file, 'r') as file:
+                data = yaml.safe_load(file)
+            return data
+        except Exception as e:
+            logger.exception(f"Failed to read config file {config_file}: {e}")

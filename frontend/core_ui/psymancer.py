@@ -35,7 +35,7 @@ class PsymancerDialog(QtWidgets.QDialog, AddPsymancerDialog):
         if self.grade_combo_box.currentText() != " ":
             self.power_1_combo.setEnabled(True)
             self.power_2_combo.setEnabled(True)
-            if self.data_manager.PSYMANCER_ABILITIES[self.grade_combo_box.currentText()].modifications["psychic_powers"] == 3:
+            if self.data_manager.getPsymancerPowerCount(self.grade_combo_box.currentText()) == 3:
                 self.power_3_combo.setEnabled(True)
         else:
             self.power_1_combo.setEnabled(False)

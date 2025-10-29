@@ -79,8 +79,8 @@ class Squad():
         total_rare_cost = 0
         for soldier in self.soldiers:
             soldier.validate(data_manager)
-            if soldier.type.is_rare:
-                total_rare_cost += soldier.type.rare_cost
+            if soldier.soldier_type.is_rare:
+                total_rare_cost += soldier.soldier_type.rare_cost
             for upgrade in soldier.upgrades:
                 if upgrade.is_rare:
                     total_rare_cost += upgrade.rare_cost
@@ -91,14 +91,14 @@ class Squad():
         valid_psymancers = type(self.psymancer) != list
         return [cost, valid_masteries, valid_rares, valid_psymancers]
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         return(
             isinstance(other, Squad) and
             self.name == other.name and
             self.soldiers == other.soldiers and
-            self.masteries == other.masters and
+            self.masteries == other.masteries and
             self.leader == other.leader and
-            self.psymancer == other.pasymancer and
+            self.psymancer == other.psymancer and
             self.wildcard == other.wildcard
         )
     

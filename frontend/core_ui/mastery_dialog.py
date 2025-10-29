@@ -11,40 +11,31 @@ class MasteryDialog(QtWidgets.QDialog, AddMasteryDialog):
 
     def loadMasteries(self):
         self.mastery_combo.addItem(" ")
-        self.mastery_combo.addItems(list(self.data_manager.CONFIG.MASTERIES.keys()))
+        self.mastery_combo.addItems(self.data_manager.getMasteries())
         self.checkWildcards()
         self.mastery_combo.currentTextChanged.connect(self.updateMasteryPowers)
 
     def checkWildcards(self):
-        if self.data_manager.squad.wildcard is not None:
-            for i in range(self.mastery_combo.count()):
-                item = self.mastery_combo.model().item(i)
-                mastery_object = self.data_manager.CONFIG.MASTERIES[item.text()] if item.text() != " " else None
-                if mastery_object is not None and mastery_object.type == self.data_manager.squad.wildcard.type:
-                    item.setEnabled(False)
+        available_masteries = self.data_manager.getAvailableMasteries()
+        for i in range(self.mastery_combo.count()):
+            item = self.mastery_combo.model().item(i)
+            if item.text() != " " and not available_masteries[item.text()]:
+                item.setEnabled(False)
 
     def updateMasteryPowers(self):
         mastery = self.mastery_combo.currentText()
-        mastery_object = self.data_manager.CONFIG.MASTERIES[mastery]
+        mastery_object = self.data_manager.getMastery(mastery)
         first = True
         for power in mastery_object.powers:
-            power_object = self.data_manager.CONFIG.MASTERY_POWERS[power]
-            name = power_object.name
-            rules = power_object.rules
-            qualities_text = "SP Cost: "
-            qualities_text += "-" if power_object.sp_cost == 0 else str(power_object.sp_cost)
-            qualities_text += " Epic: "
-            qualities_text += "Yes" if power_object.is_epic else "No"
-            qualities_text += " Passive: "
-            qualities_text += "Yes" if power_object.is_passive else "No"
+            formated_power = self.data_manager.getPower(power).formatForDisplay()
             if first:
-                self.power_1_name.setText(name)
-                self.power_1_rules.setText(rules)
-                self.power_1_qualities.setText(qualities_text)
+                self.power_1_name.setText(formated_power["name"])
+                self.power_1_rules.setText(formated_power["rules"])
+                self.power_1_qualities.setText(formated_power["qualities"])
             else:
-                self.power_2_name.setText(name)
-                self.power_2_rules.setText(rules)
-                self.power_2_qualities.setText(qualities_text)
+                self.power_2_name.setText(formated_power["name"])
+                self.power_2_rules.setText(formated_power["rules"])
+                self.power_2_qualities.setText(formated_power["qualities"])
             first = not first
         self.frame.adjustSize()
         self.frame_2.adjustSize()

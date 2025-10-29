@@ -31,6 +31,34 @@ class Equipment():
         return cls(name, cost, slots, range, attack_dice, dmg, special_rules,
                    type, rules, is_rare, rare_cost)
     
+    def toFormattedDict(self) -> dict[str, str]:
+        rarity = ""
+        if self.is_rare:
+            for _ in range(self.rare_cost):
+                rarity += u'\u2605' # Unicode star character
+        if self.range == -1:
+            range_text = "Long (" + u'\u221E' + ")"
+        elif self.range == 18:
+            range_text = "Medium (18\")"
+        elif self.range == 12:
+            range_text = "Short (12\")"
+        elif self.range == 1:
+            range_text = "Melee (1\")"
+        elif self.range == 0:
+            range_text = "-"
+        else:
+            range_text = str(self.range) + "\""
+        atk_text = str(self.attack_dice) if self.attack_dice != 0 else "-"
+        dmg_text = str(self.dmg) if self.dmg != 0 else "-"
+        return {
+            "name": self.name,
+            "cost": str(self.cost),
+            "rarity": rarity,
+            "range": range_text,
+            "atk_dice": atk_text,
+            "dmg": dmg_text
+        }
+    
     def __eq__(self, other):
         return (
             isinstance(other, Equipment) and

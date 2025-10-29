@@ -28,9 +28,9 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
         self.soldier = soldier
         self.soldier_name.setText(soldier.name)
         self.soldier_type_combo.blockSignals(True)
-        self.soldier_type_combo.setCurrentText(soldier.type.name)
+        self.soldier_type_combo.setCurrentText(soldier.soldier_type.name)
         self.soldier_type_combo.blockSignals(False)
-        self.set_upgrades([upgrade for upgrade in soldier.type.upgrades])
+        self.set_upgrades([upgrade for upgrade in soldier.soldier_type.upgrades])
         self.upgrades_tree.blockSignals(True)
         self.checkUpgrades(soldier.upgrades)
         self.upgrades_tree.blockSignals(False)
@@ -69,29 +69,11 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
 
     def checkEquipment(self, equipment: list = None):
         for equipment_object in equipment:
-            rarity_text = ""
-            if equipment_object.is_rare:
-                for _ in range(equipment_object.rare_cost):
-                    rarity_text += u'\u2605'
-            range_text = ""
-            if equipment_object.range == -1:
-                range_text = "Long (" + u'\u221E' + ")"
-            elif equipment_object.range == 18:
-                range_text = "Medium (18\")"
-            elif equipment_object.range == 9:
-                range_text = "Short (9\")"
-            elif equipment_object.range == 1:
-                range_text = "Melee (1\")"
-            elif equipment_object.range == 0:
-                range_text = "-"
-            else:
-                range_text = str(equipment_object.range) + "\""
-            atk_dice_text = str(equipment_object.attack_dice) if equipment_object.attack_dice != 0 else "-"
-            dmg_text = str(equipment_object.dmg) if equipment_object.dmg != 0 else "-"
+            equipment_text = equipment_object.toFormattedDict()
             row_pos = self.equipped_items_table.rowCount()
             self.equipped_items_table.insertRow(row_pos)
-            for col, text in enumerate([equipment_object.name, str(equipment_object.cost), rarity_text, range_text, atk_dice_text, 
-                                        dmg_text]):
+            for col, text in enumerate([equipment_text["name"], equipment_text["cost"], equipment_text["rarity"],
+                                        equipment_text["range"], equipment_text["atk_dice"], equipment_text["dmg"]]):
                 self.equipped_items_table.setItem(row_pos, col, QtWidgets.QTableWidgetItem(text))
 
     def resize_upgrades(self):
@@ -113,49 +95,20 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
         self.soldier_type_combo.currentTextChanged.connect(self.update_on_soldier_type)
 
     def update_on_soldier_type(self):
-        cost = 0
-        vitality = 0
-        slots = 0
-        ap = 0
-        base_move = 0
-        dash_move = "D0"
-        move_type = ["Normal"]
         soldier_type = self.soldier_type_combo.currentText()
-        abilities = []
-        soldier_object = None
-        rares_allowed = True
         if soldier_type != " ":
             soldier_object = self.data_manager.CONFIG.SOLDIER_TYPES[soldier_type]
-            cost = soldier_object.cost
-            vitality = soldier_object.vitality
-            slots = soldier_object.max_slots
-            ap = soldier_object.ap
-            base_move = soldier_object.base_move
-            dash_move = soldier_object.dash_move
-            move_type = soldier_object.move_type
-            rares_allowed = soldier_object.rares_allowed
-        self.soldier.type = soldier_object
-        self.soldier.vitality = vitality
-        self.soldier.max_slots = slots
-        self.soldier.ap = ap
-        self.soldier.base_move = base_move
-        self.soldier.dash_move = dash_move
-        self.soldier.move_type = move_type
-        self.soldier.cost = cost
-        self.soldier.rares_allowed = rares_allowed
-        if soldier_type != " ":
-            for ability in soldier_object.abilities:
-                ability_object = self.data_manager.CONFIG.ABILITIES[ability]
-                abilities.append(ability_object)
-        self.soldier.abilities = abilities
+        else:
+            soldier_object = self.data_manager.getDefaultSoldierType()
+        self.data_manager.applyTypeToSoldier(self.soldier, soldier_object)
         self.set_upgrades(soldier_object.upgrades)
         self.update_ui()
 
     def disableRares(self):
+        equipment_is_rare = self.data_manager.getIsEquipmentRare()
         for i in range(self.equipment_combo.count()):
             item = self.equipment_combo.model().item(i)
-            equipment = self.data_manager.CONFIG.EQUIPMENT[item.text()] if item.text() != " " else None
-            if equipment is not None and equipment.is_rare:
+            if item.text() != " " and equipment_is_rare[item.text()]:
                 item.setEnabled(False)
 
     def enableRares(self):
@@ -213,54 +166,38 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
 
     def checkAllowedEquipment(self):
         if self.soldier_type_combo.currentText() != " ":
-            if not self.soldier.rares_allowed:
+            allowed_equipment = self.data_manager.getAllowedEquipmentForSoldierType(self.soldier.soldier_type)
+            if not allowed_equipment["rares"]:
                 self.disableRares()
             else:
                 self.enableRares()
-            if not self.soldier.type.items_allowed:
+            if not allowed_equipment["items"]:
                 self.disableItems()
             else:
                 self.enableItems()
-            if not self.soldier.type.equipment_allowed:
+            if not allowed_equipment["equipment"]:
                 self.disableEquipment()
             else:
                 self.enableEquipment()
-            if not self.soldier.type.melee_allowed:
+            if not allowed_equipment["melee"]:
                 self.disableMelee()
             else:
                 self.enableMelee()
         
     def update_ui(self):
         self.soldier.validate(self.data_manager)
-        cost_text = str(self.soldier.cost)
-        vitality_text = str(self.soldier.vitality)
-        slots_text = str(self.soldier.cur_slots) + "/" + str(self.soldier.max_slots)
-        ap_text = str(self.soldier.ap)
-        move_text = (str(self.soldier.base_move) + "\" + " + self.soldier.dash_move + " " +
-                        ", ".join(self.soldier.move_type))
-        rarity_text = ""
-        abilities_text = ""
-        leader_bonus_text = self.soldier.leader_ability.name if self.soldier.leader_ability is not None else ""
-        psymancer_type_text = self.soldier.psymancer_ability.name if self.soldier.psymancer_ability is not None else ""
-        psychic_powers_text = ", ".join([power.name for power in self.soldier.psychic_powers])
-        upgrades = []
-        if self.soldier.type is not None:
-            if self.soldier.type.is_rare:
-                for _ in range(self.soldier.type.rare_cost):
-                    rarity_text += u'\u2605'
-            upgrades = self.soldier.type.upgrades
-            abilities_text = ", ".join(ability.name for ability in self.soldier.abilities)
+        display_texts = self.soldier.getDisplayTexts()
         self.checkAllowedEquipment()
-        self.cost_text.setText(cost_text)
-        self.vitality_text.setText(vitality_text)
-        self.slots_text.setText(slots_text)
-        self.ap_text.setText(ap_text)
-        self.move_text.setText(move_text)
-        self.abilities_text.setText(abilities_text)
-        self.rarity_text.setText(rarity_text)
-        self.leader_bonus_text.setText(leader_bonus_text)
-        self.psymancer_type_text.setText(psymancer_type_text)
-        self.psychic_powers_text.setText(psychic_powers_text)
+        self.cost_text.setText(display_texts["cost"])
+        self.vitality_text.setText(display_texts["vitality"])
+        self.slots_text.setText(display_texts["slots"])
+        self.ap_text.setText(display_texts["ap"])
+        self.move_text.setText(display_texts["move"])
+        self.abilities_text.setText(display_texts["abilities"])
+        self.rarity_text.setText(display_texts["rarity"])
+        self.leader_bonus_text.setText(display_texts["leader_ability"])
+        self.psymancer_type_text.setText(display_texts["psymancer_ability"])
+        self.psychic_powers_text.setText(display_texts["psychic_powers"])
 
     def set_upgrades(self, upgrades: list[str] = None):
         if upgrades is None:
@@ -269,24 +206,16 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
             self.upgrades_tree.clear()
             upgrade_items = []
             for upgrade in upgrades:
-                upgrade_object = self.data_manager.CONFIG.UPGRADES[upgrade]
-                rarity = ""
-                if upgrade_object.is_rare:
-                    for _ in range(upgrade_object.rare_cost):
-                        rarity += u'\u2605'
+                formatted_upgrade = self.data_manager.getFormattedUpgrade(upgrade)
                 upgrade_item = QtWidgets.QTreeWidgetItem([upgrade,
-                                                          str(upgrade_object.cost), str(rarity)])
+                                                          str(formatted_upgrade["cost"]), str(formatted_upgrade["rarity"])])
                 upgrade_item.setFlags(upgrade_item.flags() | Qt.ItemIsUserCheckable)
                 upgrade_item.setCheckState(0, Qt.Unchecked)
-                if len(upgrade_object.has_options) > 0:
-                    for option in upgrade_object.has_options:
-                        option_object = self.data_manager.CONFIG.UPGRADES[option]
-                        rarity = ""
-                        if option_object.is_rare:
-                            for _ in range(option_object.rare_cost):
-                                rarity += u'\u2605'
+                if len(formatted_upgrade["has_options"]) > 0:
+                    for option in formatted_upgrade["has_options"]:
+                        formatted_option = self.data_manager.getFormattedUpgrade(option)
                         option_item = QtWidgets.QTreeWidgetItem([option,
-                                                                 str(option_object.cost), str(rarity)])
+                                                                 str(formatted_option["cost"]), str(formatted_option["rarity"])])
                         option_item.setFlags(option_item.flags() | Qt.ItemIsUserCheckable)
                         option_item.setFlags(option_item.flags() & ~Qt.ItemIsEnabled)
                         option_item.setCheckState(0, Qt.Unchecked)
@@ -305,7 +234,7 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
                 child = item.child(i)
                 child.setFlags(child.flags() | Qt.ItemIsEnabled)
             self.upgrades_tree.blockSignals(False)
-            self.apply_upgrade(text)
+            self.data_manager.applySoldierUpgrade(self.soldier, text)
         elif state == Qt.CheckState.Unchecked:
             self.upgrades_tree.blockSignals(True)
             for i in range(item.childCount()):
@@ -313,49 +242,10 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
                 child.setFlags(child.flags() & ~Qt.ItemIsEnabled)
                 if child.checkState(0) == Qt.CheckState.Checked:
                     child.setCheckState(0, Qt.Unchecked)
-                    self.unapply_upgrade(child.text(column))
+                    self.data_manager.unapplySoldierUpgrade(self.soldier, child.text(column))
             self.upgrades_tree.blockSignals(False)
-            self.unapply_upgrade(text)
+            self.data_manager.unapplySoldierUpgrade(self.soldier, text)
         self.update_ui()
-    
-    def apply_upgrade(self, upgrade):
-        upgrade_object = self.data_manager.CONFIG.UPGRADES[upgrade]
-        self.soldier.upgrades.append(upgrade_object)
-        self.soldier.cost += upgrade_object.cost
-        self.soldier.abilities.extend(self.data_manager.CONFIG.ABILITIES[ability] for ability in upgrade_object.abilities)
-        for modification in upgrade_object.modifications:
-            if modification in ["weapon_type", "equipment", "weapon"]:
-                pass #Handle non-standard mods
-            else:
-                if upgrade_object.modifications[modification]["mod"] == "add":
-                    setattr(self.soldier, modification, getattr(self.soldier, modification) + 
-                            upgrade_object.modifications[modification]["value"])
-                elif upgrade_object.modifications[modification]["mod"] == "equals":
-                    setattr(self.soldier, modification, upgrade_object.modifications[modification]["value"])
-
-    def unapply_upgrade(self, upgrade):
-        upgrade_object = self.data_manager.CONFIG.UPGRADES[upgrade]
-        self.soldier.upgrades.remove(upgrade_object)
-        self.soldier.cost -= upgrade_object.cost
-        for ability in upgrade_object.abilities:
-            print(ability)
-            print(self.soldier.abilities)
-            print(self.data_manager.CONFIG.ABILITIES[ability])
-            self.soldier.abilities.remove(self.data_manager.CONFIG.ABILITIES[ability])
-        for modification in upgrade_object.modifications:
-            if modification in ["weapon_type", "equipment", "weapon"]:
-                pass #Handle non-standard mods
-            else:
-                if upgrade_object.modifications[modification]["mod"] == "add":
-                    if type(upgrade_object.modifications[modification]["value"]) is list:
-                        new_upgrade_list = [item for item in getattr(self.soldier, modification) if 
-                                            item not in upgrade_object.modifications[modification]["value"]]
-                        setattr(self.soldier, modification, new_upgrade_list)
-                    else:
-                        setattr(self.soldier, modification, getattr(self.soldier, modification) -
-                                upgrade_object.modifications[modification]["value"])
-                elif upgrade_object.modifications[modification]["mod"] == "equals":
-                    setattr(self.soldier, modification, getattr(self.soldier.type, modification))
 
     def handle_leader(self, state):
         if state == 2:
@@ -365,9 +255,7 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
                 dialog.rejected.connect(lambda: self.leaderCanceled())
                 dialog.exec()
             else:
-                self.is_leader_checkbox.blockSignals(True)
-                self.is_leader_checkbox.setCheckState(Qt.CheckState.Unchecked)
-                self.is_leader_checkbox.blockSignals(False)
+                self.leaderCanceled()
                 #Error dialog
         elif state == 0:
             self.leader_unselected()
@@ -380,22 +268,12 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
 
     def leader_selected(self, ability: str = ''):
         if self.soldier_type_combo.currentText() != " ":
-            self.soldier.leader_ability = self.data_manager.CONFIG.UPGRADES[ability]
-            for ability in self.soldier.leader_ability.abilities:
-                self.soldier.abilities.append(self.data_manager.CONFIG.ABILITIES[ability])
-            self.soldier.is_leader = True
-            self.soldier.cost += (self.soldier.vitality * self.soldier.leader_ability.cost)
+            self.data_manager.setSoldierAsLeader(self.soldier, ability)
         else:
-            self.is_leader_checkbox.blockSignals(True)
-            self.is_leader_checkbox.setCheckState(Qt.CheckState.Unchecked)
-            self.is_leader_checkbox.blockSignals(False)
+            self.leaderCanceled()
    
     def leader_unselected(self):
-        self.soldier.is_leader = False
-        self.soldier.cost -= (self.soldier.vitality * self.soldier.leader_ability.cost)
-        for ability in self.soldier.leader_ability.abilities:
-            self.soldier.abilities.remove(self.data_manager.CONFIG.ABILITIES[ability])
-        self.soldier.leader_ability = None
+        self.data_manager.unsetSoldierAsLeader(self.soldier)
 
     def handle_psymancer(self, state):
         if state == 2:
@@ -405,9 +283,7 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
                 dialog.rejected.connect(lambda: self.psymancerCanceled())
                 dialog.exec()
             else:
-                self.is_psymancer_checkbox.blockSignals(True)
-                self.is_psymancer_checkbox.setCheckState(Qt.CheckState.Unchecked)
-                self.is_psymancer_checkbox.blockSignals(False)
+                self.psymancerCanceled()
                 #Error dialog
         elif state == 0:
             self.psymancerUnselected()
@@ -420,32 +296,12 @@ class SoldierDialog(QtWidgets.QDialog, AddSoldierDialog):
 
     def psymancerSelected(self, powers: list[str] = []):
         if self.soldier_type_combo.currentText() != " ":
-            self.soldier.psymancer_ability = self.data_manager.CONFIG.UPGRADES[powers[0]]
-            for ability in self.soldier.psymancer_ability.abilities:
-                self.soldier.abilities.append(self.data_manager.CONFIG.ABILITIES[ability])
-            for power in powers[1:]:
-                if power != " ":
-                    self.soldier.psychic_powers.append(self.data_manager.CONFIG.UPGRADES[power])
-            for power in self.soldier.psychic_powers:
-                for ability in power.abilities:
-                    self.soldier.abilities.append(self.data_manager.CONFIG.ABILITIES[ability])
-            self.soldier.is_psymancer = True
-            self.soldier.cost += (self.soldier.vitality * self.soldier.psymancer_ability.cost)
+            self.data_manager.setSoldierAsPsymancer(self.soldier, powers)
         else:
-            self.is_psymancer_checkbox.blockSignals(True)
-            self.is_psymancer_checkbox.setCheckState(Qt.CheckState.Unchecked)
-            self.is_psymancer_checkbox.blockSignals(False)
+            self.psymancerCanceled()
 
     def psymancerUnselected(self):
-        self.soldier.is_psymancer = False
-        self.soldier.cost -= (self.soldier.vitality * self.soldier.psymancer_ability.cost)
-        for power in self.soldier.psychic_powers:
-            for ability in power.abilities:
-                self.soldier.abilities.remove(self.data_manager.CONFIG.ABILITIES[ability])
-        self.soldier.psychic_powers = []
-        for ability in self.soldier.psymancer_ability.abilities:
-            self.soldier.abilities.remove(self.data_manager.CONFIG.ABILITIES[ability])
-        self.soldier.psymancer_ability = None
+        self.data_manager.unsetSoldierAsPsymancer(self.soldier)
 
     def addEquipment(self):
         equipment = self.equipment_combo.currentText()

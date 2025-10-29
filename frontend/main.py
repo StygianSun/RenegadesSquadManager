@@ -123,55 +123,33 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         pass
 
     def updateUI(self):
-        squad_cost = 0
-        rares_list = []
+        squad_cost = self.data_manager.squadCost()
         self.squad_members_table.setRowCount(0)
         self.squad_mastery_table.setRowCount(0)
         self.rares_table.setRowCount(0)
-        for soldier in self.data_manager.squad.soldiers:
-            squad_cost += soldier.cost
-            soldier_name = soldier.name
-            soldier_type = soldier.type.name
-            soldier_cost = str(soldier.cost)
-            soldier_upgrades = []
-            for upgrade in soldier.upgrades:
-                soldier_upgrades.append(upgrade.name)
-                if upgrade.is_rare:
-                    rares_list.append(upgrade)
-            soldier_equipment = []
-            for equipment in soldier.equipment:
-                soldier_equipment.append(equipment.name)
-                if equipment.is_rare:
-                    rares_list.append(equipment)
-            soldier_leader = "Yes" if soldier.is_leader else ""
-            soldier_psy_grade = soldier.psymancer_ability.name if soldier.psymancer_ability is not None else ""
-            soldier_psymancer = "Yes, " + soldier_psy_grade if soldier.is_psymancer else ""
+        squad_rows = self.data_manager.getSquadMembersAsRows()
+        rares_list = self.data_manager.getRaresInSquad()
+        mastery_rows = self.data_manager.getSquadMasteriesAsRows()
+        for soldier in squad_rows.keys():
+            soldier_text = squad_rows[soldier]
             row_pos = self.squad_members_table.rowCount()
             self.squad_members_table.insertRow(row_pos)
             for col, text in enumerate(
-                                [soldier_name, soldier_type, soldier_leader, soldier_psymancer, soldier_cost,
-                                 ", ".join(soldier_upgrades), ", ".join(soldier_equipment)]
+                                [soldier, soldier_text["type"], soldier_text["is_leader"], soldier_text["is_psymancer"], 
+                                 soldier_text["cost"], ", ".join(soldier_text["upgrades"]), ", ".join(soldier_text["equipment"])]
                             ):
                 self.squad_members_table.setItem(row_pos, col, QtWidgets.QTableWidgetItem(text))
-            if soldier.type.is_rare:
-                rares_list.append(soldier.type)
-        for rare in rares_list:
+        for rare, rarity in rares_list.items():
             row_pos = self.rares_table.rowCount()
             self.rares_table.insertRow(row_pos)
-            rare_name = rare.name
-            rarity = ""
-            for _ in range(rare.rare_cost):
-                rarity += u'\u2605'
-            for col, text in enumerate([rare_name, rarity]):
+            for col, text in enumerate([rare, rarity]):
                 self.rares_table.setItem(row_pos, col, QtWidgets.QTableWidgetItem(text))
         self.total_cost_text.setText(str(squad_cost))
-        for mastery in self.data_manager.squad.masteries:
-            mastery_name = mastery.name
-            mastery_powers = ", ".join(mastery.powers)
-            mastery_type = mastery.type
+        for mastery in mastery_rows.keys():
+            mastery_text = mastery_rows[mastery]
             row_pos = self.squad_mastery_table.rowCount()
             self.squad_mastery_table.insertRow(row_pos)
-            for col, text in enumerate([mastery_name, mastery_type, mastery_powers]):
+            for col, text in enumerate([mastery, mastery_text["type"], ", ".join(mastery_text["powers"])]):
                 self.squad_mastery_table.setItem(row_pos, col, QtWidgets.QTableWidgetItem(text))
         self.resize(self.sizeHint())
 

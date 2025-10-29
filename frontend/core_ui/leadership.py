@@ -19,8 +19,7 @@ class LeadershipDialog(QtWidgets.QDialog, AddLeadershipDialog):
 
     def updateAbility(self):
         try:
-            self.rules_text.setText(self.data_manager.CONFIG.ABILITIES[
-            self.data_manager.LEADERSHIP_ABILITIES[self.leader_ability_combo.currentText()].abilities[0]].rules)
+            self.rules_text.setText(self.data_manager.getLeadershipAbilityRules(self.leader_ability_combo.currentText()))
         except:
             self.rules_text.setText("")
 

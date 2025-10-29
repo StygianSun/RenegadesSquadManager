@@ -1,4 +1,4 @@
-__all__ = {
+__all__ = [
     "ability",
     "equipment",
     "mastery_power",
@@ -7,4 +7,4 @@ __all__ = {
     "soldier",
     "squad",
     "upgrade"
-}
+]

@@ -1,4 +1,4 @@
-__all__ = {
+__all__ = [
     "rules_configurations",
     "config"
-}
+]

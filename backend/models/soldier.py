@@ -2,21 +2,26 @@ from backend.models.soldier_type import SoldierType
 from backend.models.upgrade import Upgrade
 from backend.models.equipment import Equipment
 from backend.models.ability import Ability
+import logging
+import traceback
+
+logger = logging.getLogger(__name__)
 
 class Soldier():
-    def __init__(self, name: str = '', type: SoldierType = None, vitality: int = 0, max_slots: int = 0, cur_slots: int = 0,
+
+    def __init__(self, name: str = '', soldier_type: SoldierType = None, vitality: int = 0, max_slots: int = 0, cur_slots: int = 0,
                  ap: int = 0, base_move: int = 0, dash_move: str = 'D0', move_type: list[str] = ['Normal'], 
                  upgrades: list[Upgrade] = None, equipment: list[Equipment] = None, rares_allowed: bool = False,
                  is_leader: bool = False, is_psymancer: bool = False):
         self.name: str = name
-        self.type: SoldierType = type
+        self.soldier_type: SoldierType = soldier_type
         self.vitality: int = vitality
         self.max_slots: int = max_slots
         self.cur_slots: int = cur_slots
         self.ap: int = ap
         self.base_move: int = base_move
         self.dash_move: str = dash_move
-        self.move_type: list[str] = move_type
+        self.move_type: list[str] = move_type if move_type is not None else ['Normal']
         self.upgrades: list[Upgrade] = upgrades if upgrades is not None else []
         self.equipment: list[Equipment] = equipment if equipment is not None else []
         self.rares_allowed: bool = rares_allowed
@@ -30,7 +35,7 @@ class Soldier():
 
     def validateCost(self):
         try:
-            self.cost = self.type.cost
+            self.cost = self.soldier_type.cost
             for upgrade in self.upgrades:
                 self.cost += upgrade.cost
             if self.is_leader:
@@ -38,25 +43,28 @@ class Soldier():
             if self.is_psymancer:
                 self.cost += (self.vitality * self.psymancer_ability.cost)
             for item in self.equipment:
-                self.cost += item.cost
-        except:
-            #Do nothing
-            print("Cost validation failed")
+                if isinstance(item.cost, str):
+                    self.cost += int(item.cost[0]) * self.vitality
+                else:
+                    self.cost += item.cost
+        except Exception as e:
+            logger.exception("Cost validation failed: %s", e)
+            raise e
 
     def validateType(self, data_manager):
         try:
-            self.vitality = self.type.vitality
-            self.max_slots = self.type.max_slots
-            self.ap = self.type.ap
-            self.base_move = self.type.base_move
-            self.dash_move = self.type.dash_move
-            self.move_type = self.type.move_type
-            self.abilities = [data_manager.CONFIG.ABILITIES[ability] for ability in self.type.abilities]
-            self.cost = self.type.cost
-            self.rares_allowed = self.type.rares_allowed
-        except:
-            #Do Nothing
-            print("Type validation failed")
+            self.vitality = self.soldier_type.vitality
+            self.max_slots = self.soldier_type.max_slots
+            self.ap = self.soldier_type.ap
+            self.base_move = self.soldier_type.base_move
+            self.dash_move = self.soldier_type.dash_move
+            self.move_type = self.soldier_type.move_type
+            self.abilities = [data_manager.CONFIG.ABILITIES[ability] for ability in self.soldier_type.abilities]
+            self.cost = self.soldier_type.cost
+            self.rares_allowed = self.soldier_type.rares_allowed
+        except Exception as e:
+            logger.exception("Type validation failed: %s", e)
+            raise e
 
     def validateUpgrades(self, data_manager):
         try:
@@ -71,28 +79,27 @@ class Soldier():
                                 upgrade.modifications[modification]["value"])
                         elif upgrade.modifications[modification]["mod"] == "equals":
                             setattr(self, modification, upgrade.modifications[modification]["value"])
-        except:
-            #Do nothing
-            print("Upgrade validation failed")
+        except Exception as e:
+            logger.exception("Upgrade validation failed: %s", e)
+            raise e
 
     def validateEquipment(self):
         try:
             self.cur_slots = 0
             for item in self.equipment:
                 self.cur_slots += item.slots
-        except:
-            #Do nothing
-            print("Equipment validation failed")
-            pass
+        except Exception as e:
+            logger.exception("Equipment validation failed: %s", e)
+            raise e
 
     def validateLeader(self, data_manager):
         try:
             if self.is_leader and self.leader_ability is not None:
                 for ability in self.leader_ability.abilities:
                     self.abilities.append(data_manager.CONFIG.ABILITIES[ability])
-        except:
-            #Do nothing
-            print("Leader validation failed")
+        except Exception as e:
+            logger.exception("Leader validation failed: %s", e)
+            raise e
 
     def validatePsymancer(self, data_manager):
         try:
@@ -102,9 +109,9 @@ class Soldier():
                 for power in self.psychic_powers:
                     for ability in power.abilities:
                         self.abilities.append(data_manager.CONFIG.ABILITIES[ability])
-        except:
-            #Do nothing
-            print("Psymancer validation failed")
+        except Exception as e:
+            logger.exception("Psymancer validation failed: %s", e)
+            raise e
 
     def validate(self, data_manager):
         try:
@@ -114,13 +121,33 @@ class Soldier():
             self.validateLeader(data_manager)
             self.validatePsymancer(data_manager)
             self.validateCost()
-        except:
-            # Do Nothing
-            print("Full validation failed")
-            pass
+        except Exception as e:
+            logger.exception("Full validation failed: %s", e)
+            raise e
+        
+    def getDisplayTexts(self) -> dict[str, str]:
+        rarity = ""
+        abilities = ""
+        if self.soldier_type is not None:
+            if self.soldier_type.is_rare:
+                for _ in range(self.soldier_type.rare_cost):
+                    rarity += u'\u2605' # Unicode star character
+            abilities += ", ".join(ability.name for ability in self.abilities)
+        return {
+            "cost": str(self.cost),
+            "vitality": str(self.vitality),
+            "slots": str(self.cur_slots) + "/" + str(self.max_slots),
+            "ap": str(self.ap),
+            "move": (str(self.base_move) + "\" + " + self.dash_move + " " + ", ".join(self.move_type)),
+            "rarity": rarity,
+            "abilities": abilities,
+            "leader_ability": self.leader_ability.name if self.leader_ability is not None else "",
+            "psymancer_ability": self.psymancer_ability.name if self.psymancer_ability is not None else "",
+            "psychic_powers": ", ".join(power.name for power in self.psychic_powers)
+        }
 
     def __repr__(self):
-        return f"""Soldier(name='{self.name}', type='{self.type}', vitality='{self.vitality}',
+        return f"""Soldier(name='{self.name}', type='{self.soldier_type}', vitality='{self.vitality}',
             max_slots='{self.max_slots}', ap='{self.ap}', base_move='{self.base_move}',
             dash_move='{self.dash_move}', move_type='{self.move_type}', abilities='{self.abilities}',
             upgrades='{self.upgrades}', cost='{self.cost}', equipment='{self.equipment}',
@@ -132,7 +159,7 @@ class Soldier():
         return (
             isinstance(other, Soldier) and
             self.name == other.name and
-            self.type == other.type and
+            self.soldier_type == other.soldier_type and
             self.vitality == other.vitality and
             self.max_slots == other.max_slots and
             self.cur_slots == other.cur_slots and
@@ -155,7 +182,7 @@ class Soldier():
     def toDict(self):
         soldier_dict = {}
         soldier_dict["name"] = self.name
-        soldier_dict["type"] = self.type.name
+        soldier_dict["type"] = self.soldier_type.name
         soldier_dict["upgrades"] = [upgrade.name for upgrade in self.upgrades]
         soldier_dict["equipment"] = [equipment.name for equipment in self.equipment]
         soldier_dict["is_leader"] = self.is_leader

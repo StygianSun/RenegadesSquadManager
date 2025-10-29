@@ -1,7 +1,7 @@
-__all__ = {
+__all__ = [
     "add_mastery",
     "add_soldier",
     "leadership",
     "mainwindow",
     "psymancer"
-}
+]
